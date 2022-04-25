@@ -51,9 +51,9 @@ fetch('../app/rondas.json')
                     i++;
                     cod='';
                     createPregunta(i,cod,data,val);
-                }
+                }1
             });*/
-            cod+=`<button type="button" class="btn btn-success" onClick=validateAnswer(${val,data}) id="boton">Responder</button>
+            cod+=`<button type="button" class="btn btn-success" id="boton">Responder</button>
             <button type="button" class="btn btn-danger">Rendirse</button></div>`
             document.getElementById("resultado").innerHTML=cod
             document.getElementById("boton").addEventListener("click", function(){                 
@@ -61,7 +61,8 @@ fetch('../app/rondas.json')
                 if(i+1<data.length){
                     i++;
                     cod='';
-                    createPregunta(i,cod,data,val);
+                    validateAnswer(i,val,data,cod)
+                   
                 }
             });
     }
@@ -77,21 +78,26 @@ fetch('../app/rondas.json')
             <a href="#" class="card-link">Another link</a>
         </div>
         </div>`
+        
         historico.innerHTML=cod;
     }
 
-    function validateAnswer(val,data)  {
-        let si= document.getElementsByClassName("form-check-label");
-        console.log(si[0].innerText)
+    function validateAnswer(index,val,data,cod)  {
+        let si= document.getElementsByClassName("form-check-input");
+        let no= document.getElementsByClassName("form-check-label");
         for (let i = 0; i < si.length; i++) {
-            const element = si[i].innerText;
-            console.log(element)
-            if (element!=data[i][val].items[j]) {
-                
+            if(si[i].checked){
+               if(no[i].innerText == data[index-1][val].answer ) {
+                console.log(":'D")    
+                createPregunta(index,cod,data,val);
+               }
             }
+            
         }
     
-    }      //:):D D:
-
+    }      
+/**
+ * val, es el rango
+ */
 
         
