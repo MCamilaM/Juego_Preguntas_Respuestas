@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Shizuru&family=ZCOOL+QingKe+HuangYou&display=swap');
 
-.container{
-    padding: 2rem;
+
+
+.container__j{
+    padding: 1rem;
     font-family: 'ZCOOL QingKe HuangYou', cursive;
     font-size: 2rem;
 }

@@ -43,3 +43,9 @@ body {
     align-content: center;
 }
 
+footer {
+    position: relative;
+    width: 100%;
+    background: red;
+    min-height: 100px;
+}
