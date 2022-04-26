@@ -3,30 +3,41 @@ fetch('../app/rondas.json')
     .then(resp => resp.json())
     .then(data => {
         let puntajes=[0,50,100,150,200,250];
-        let puntaje = 0;
         let i=0;
-        let val=Math.floor(Math.random() * (4 - 0)) + 0;
-        /*
-        let cad='<tr><th>Preguntas</th><th>Respuesta</th></tr>'
-        for (let categoria of data){
-            cad+=`<tr><td id="${categoria[val].answer}">
-            ${categoria[val].question}</td>
-                    <td>${categoria[val].answer}</td></tr>`
-        }
-        document.getElementById("tabla1").innerHTML=cad*/
+        let val=Math.floor(Math.random() * (4 - 0)) + 0;2
         let cod='';
-        createPregunta(i,cod,data,val,puntajes);
+        consultarNombre(i,cod,data,val,puntajes);
+        
     })
     .catch(error => console.log("Hubo un error: " + error.message))
     function sigPregunta(i){
         let res=document.getElementById("resultado");
-        console.log("contPregunta"+(i+1))
         let pregunta=document.getElementById("contPregunta"+(i+1));
-        console.log(pregunta);
         res.removeChild(pregunta);
         
     }
-
+    function consultarNombre(i,cod,data,val,puntajes){
+        console.log(i+1)
+        cod+=`<div id="form-user">
+        <h1 >Nickname</h1>
+        <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Ingresa tu nick" aria-label="Ingrese su usuario" aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary" type="button" id="btnUser">Aceptar</button>
+      </div></div>`
+        document.getElementById("resultado").innerHTML=cod
+        document.getElementById("btnUser").addEventListener("click", function(){
+            if(document.getElementsByClassName("form-control")[0].value!=""){
+                console.log("sdasd")
+                localStorage.setItem("nickname",document.getElementsByClassName("form-control")[0].value);
+                let res=document.getElementById("resultado");
+                let pregunta=document.getElementById("form-user");
+                cod='';
+                res.removeChild(pregunta);
+                createPregunta(i,cod,data,val,puntajes);
+            }
+        });
+        
+    }
 
     function createPregunta(i,cod,data,val,puntajes){
         console.log(i+1)
@@ -99,7 +110,7 @@ fetch('../app/rondas.json')
             if(si[i].checked){
                if(index == 4 && (no[i].innerText == data[index-1][val].answer)){
                     //pagina de ganar juego
-                    console.log("ganaste :)");
+                    location.href="winGame.html"
                     setPuntaje(index,puntajes)
                }else if (no[i].innerText == data[index-1][val].answer) {
                     console.log(":'D") 
