@@ -1,3 +1,6 @@
+import {nuevoJugador, updateJugadores, getJugador, verificarSiExisteJugador} from "../app/localStorage.js";
+
+let jugadorN = "";
 
 fetch('../app/rondas.json')
     .then(resp => resp.json())
@@ -7,40 +10,40 @@ fetch('../app/rondas.json')
         let val=Math.floor(Math.random() * (4 - 0)) + 0;2
         let cod='';
         consultarNombre(i,cod,data,val,puntajes);
-        
     })
     .catch(error => console.log("Hubo un error: " + error.message))
+    /*
     function sigPregunta(i){
         let res=document.getElementById("resultado");
         let pregunta=document.getElementById("contPregunta"+(i+1));
         res.removeChild(pregunta);
         
-    }
+    }*/
     function consultarNombre(i,cod,data,val,puntajes){
-        console.log(i+1)
         cod+=`<div id="form-user">
         <h1 >Nickname</h1>
         <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Ingresa tu nick" aria-label="Ingrese su usuario" aria-describedby="button-addon2">
         <button class="btn btn-outline-secondary" type="button" id="btnUser">Aceptar</button>
       </div></div>`
+        if(document.getElementById("resultado")!=null){
         document.getElementById("resultado").innerHTML=cod
         document.getElementById("btnUser").addEventListener("click", function(){
             if(document.getElementsByClassName("form-control")[0].value!=""){
-                console.log("sdasd")
                 localStorage.setItem("nickname",document.getElementsByClassName("form-control")[0].value);
                 let res=document.getElementById("resultado");
                 let pregunta=document.getElementById("form-user");
                 cod='';
+                nuevoJugador(document.getElementsByClassName("form-control")[0].value);
+                jugadorN=document.getElementsByClassName("form-control")[0].value;
                 res.removeChild(pregunta);
                 createPregunta(i,cod,data,val,puntajes);
             }
         });
-        
-    }
+        }
+}
 
     function createPregunta(i,cod,data,val,puntajes){
-        console.log(i+1)
         cod+=`<div id="contPregunta${i+1}">
             <h5>${data[i][val].question}</h5>` 
             for (let j = 0; j < data[i][val].items.length; j++) { 
@@ -52,17 +55,6 @@ fetch('../app/rondas.json')
                 </label>
                 </div>`
             }
-            /*cod+=`<button type="button" class="btn btn-success" onClick=sigPregunta(${i}) id="boton">Responder</button>
-            <button type="button" class="btn btn-danger">Rendirse</button></div>`
-            document.getElementById("resultado").innerHTML=cod
-            document.getElementById("boton").addEventListener("click", function(){                 
-                //invocar a validate Response enviar i, j, y la respuesta selecionada.
-                if(i+1<data.length){
-                    i++;
-                    cod='';
-                    createPregunta(i,cod,data,val);
-                }1
-            });*/
             cod+=`<button type="button" class="btn btn-success" disabled id="boton">Responder</button>
             <button type="button" class="btn btn-danger" id="boton2">Rendirse</button></div>`
             document.getElementById("resultado").innerHTML=cod
@@ -76,7 +68,7 @@ fetch('../app/rondas.json')
               }
             document.getElementById("boton").addEventListener("click", function(){                 
                 //invocar a validate Response enviar i, j, y la respuesta selecionada.
-                if(i+1<data.length){
+                if(i+1<=data.length){
                     i++;
                     cod='';
                     validateAnswer(i,val,data,cod,puntajes)
@@ -108,7 +100,8 @@ fetch('../app/rondas.json')
         console.log("index: "+index)
         for (let i = 0; i < si.length; i++) {
             if(si[i].checked){
-               if(index == 4 && (no[i].innerText == data[index-1][val].answer)){
+               if(index == 5 && (no[i].innerText == data[index-1][val].answer)){
+                    console.log("opcion 1")
                     //pagina de ganar juego
                     location.href="winGame.html"
                     setPuntaje(index,puntajes)
@@ -117,25 +110,23 @@ fetch('../app/rondas.json')
                     setPuntaje(index,puntajes)
                     createPregunta(index,cod,data,val,puntajes);
                 }else{
+                    console.log("opcion 3")
                     setPuntaje(0,puntajes)
                     location.href="lostGame.html"
-                    
             }
             }
             
         }
     } 
     function setPuntaje(idCategoria,puntajes) {
+        let jugadores = getJugador();
+        console.log(jugadores)
+        let val = jugadores.findIndex((item) => item.nombre === jugadorN);
+        console.log(val)
+        jugadores[val].puntaje = puntajes[idCategoria];
+        updateJugadores(jugadores);
         let puntaje = puntajes[idCategoria];     
         console.log(puntaje)   
     }
-/**
- * val, es el rango
- * 
- * Comparar si la pregunta es la ultima
- * guardar historico
- * mostrar historico
- * cambiar nombre variables
- */
 
         
