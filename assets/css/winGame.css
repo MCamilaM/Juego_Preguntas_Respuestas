@@ -1,39 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Shizuru&family=Special+Elite&family=ZCOOL+QingKe+HuangYou&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Shizuru&family=ZCOOL+QingKe+HuangYou&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Shizuru&family=Special+Elite&family=ZCOOL+QingKe+HuangYou&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Shizuru&family=ZCOOL+QingKe+HuangYou&display=swap");
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-
-
-body{
-    margin: 0;
+body {
+  margin: 0;
   overflow-x: hidden;
   overflow: hidden;
 }
 
 .name {
-    font-size: 4rem;
+  font-size: 4rem;
 }
 
 .container {
-    padding: 2rem;
-    font-family: 'Press Start 2P', cursive;
-    font-size: 2rem;
+  padding: 2rem;
+  font-family: "Press Start 2P", cursive;
+  font-size: 2rem;
 }
 
 .imgMonopoly {
-padding: 2rem;
-padding-left: 40rem
+  padding: 1rem;
+  padding-left: 40rem;
 }
 
 p {
-    font-family: 'ZCOOL QingKe HuangYou', cursive;
-    color: rgb(46, 125, 46);
-    font-size: 7rem;
-    text-align: center;
-    margin: 0px;
+  font-family: "ZCOOL QingKe HuangYou", cursive;
+  color: rgb(46, 125, 46);
+  font-size: 7rem;
+  text-align: center;
+  margin: 0px;
 }
