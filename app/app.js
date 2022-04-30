@@ -1,3 +1,12 @@
+/**
+ * Aquí encontrarás la lógica de el juego: ¿quién quiere ser millonario?.
+ * El cual aplicamos con rondas, categorías y preguntas aleatorias.
+ * Las categorías fueron tomadas como la dificultad de cada ronda, siendo así,
+ * la categoría fácil en la ronda 1.
+ * @author: Josep Palomino - Camila Morales - Sara Oquendo
+ */
+
+
 import {
   nuevoJugador,
   updateJugadores,
@@ -22,9 +31,10 @@ fetch("../app/rondas.json")
   .catch((error) => console.log("Hubo un error: " + error.message));
 
 /**
- *
+ *Función para guardar información de los jugadores (puntaje, nombre)
+ @param cod, código contenedor
  */
-function escribirHistorico(i, cod, data, val, puntajes) {
+function escribirHistorico(cod) {
   let historico = document.getElementById("registroHistoricos");
   let jugadores = getJugador();
   jugadores.forEach((element) => {
@@ -39,7 +49,11 @@ function escribirHistorico(i, cod, data, val, puntajes) {
 }
 
 /**
- *
+ *Función para pedir el nickname del jugador
+ @param i, fila en la matriz pregunta - respuesta
+ @param cod, código contenedor de data
+ @param val, valor rándom selector de pregunta
+ @param puntajes, puntaje acumulable
  */
 function consultarNombre(i, cod, data, val, puntajes) {
   cod += `<div id="form-user">
@@ -69,7 +83,10 @@ function consultarNombre(i, cod, data, val, puntajes) {
 }
 
 /**
- *
+ *Función que muestra las preguntas
+ @param i, i, fila en la matriz pregunta - respuesta
+ @param cod, código contenedor de data
+ @param puntajes, puntaje acumulable
  */
 function createPregunta(i, cod, data, val, puntajes) {
   cod += `<div id="contPregunta${i + 1}">
@@ -98,8 +115,10 @@ function createPregunta(i, cod, data, val, puntajes) {
       });
   }
 
+  /**
+   * invocar a validate Response enviar i, j, y la respuesta selecionada.
+   */
   document.getElementById("boton").addEventListener("click", function () {
-    //invocar a validate Response enviar i, j, y la respuesta selecionada.
     if (i + 1 <= data.length) {
       i++;
       cod = "";
@@ -112,7 +131,10 @@ function createPregunta(i, cod, data, val, puntajes) {
 }
 
 /**
- *
+ * Funcion que verifica las respuestas, y dependiendo de ella, envía al jugador a una pestaña de ganador o de perdedor
+ * @param puntajes, puntaje acumulable
+ * @param cod, código contenedor de data y preguntas
+ * @param val, valor rándom selector de pregunta
  */
 function validateAnswer(index, val, data, cod, puntajes) {
   let si = document.getElementsByClassName("form-check-input");
@@ -139,7 +161,9 @@ function validateAnswer(index, val, data, cod, puntajes) {
 }
 
 /**
- *
+ * Función para verificar y sacar el puntaje acumulado del jugador
+ * @param idCategoria, identificador de dificultad en las rondas
+ * @param puntajes, puntaje acumulado del jugador
  */
 function setPuntaje(idCategoria, puntajes) {
   let jugadores = getJugador();
